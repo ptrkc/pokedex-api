@@ -13,9 +13,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post("/sign-up", userController.createUser);
+app.post("/sign-up", userController.signUp);
 
-// app.post("/sign-in", userController.createSession);
+app.post("/sign-in", userController.signIn);
 
 // app.get("/pokemons", authMiddleware, pokemonController.get);
 

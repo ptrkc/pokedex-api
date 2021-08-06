@@ -1,7 +1,10 @@
-import { getRepository } from "typeorm";
+import { getConnection } from "typeorm";
 
-import User from "../../src/entities/User";
-
-export async function clearDatabase () {
-  await getRepository(User).delete({});
+export async function clearDatabase() {
+    const tables = ["users", "sessions"];
+    let query = "";
+    for (const table of tables) {
+        query += `TRUNCATE "${table}" RESTART IDENTITY CASCADE;`;
+    }
+    await getConnection().query(query);
 }
