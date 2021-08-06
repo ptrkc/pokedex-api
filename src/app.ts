@@ -7,7 +7,8 @@ import "reflect-metadata";
 import connectDatabase from "./database";
 
 import * as userController from "./controllers/userController";
-// import * as pokemonController from "./controllers/pokemonController";
+import { authMiddleware } from "./middlewares/authMiddleware";
+import * as pokemonController from "./controllers/pokemonController";
 
 const app = express();
 app.use(cors());
@@ -17,7 +18,7 @@ app.post("/sign-up", userController.signUp);
 
 app.post("/sign-in", userController.signIn);
 
-// app.get("/pokemons", authMiddleware, pokemonController.get);
+app.get("/pokemons", authMiddleware, pokemonController.getAll);
 
 // app.post("/my-pokemons/:id/add", authMiddleware, pokemonController.add);
 
