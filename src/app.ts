@@ -23,7 +23,11 @@ app.get("/pokemons", authMiddleware, pokemonController.getAll);
 
 app.post("/my-pokemons/:id/add", authMiddleware, userPokemonController.add);
 
-// app.get("/my-pokemons/:id/remove", authMiddleware, pokemonController.remove);
+app.post(
+    "/my-pokemons/:id/remove",
+    authMiddleware,
+    userPokemonController.remove
+);
 
 export async function init() {
     await connectDatabase();

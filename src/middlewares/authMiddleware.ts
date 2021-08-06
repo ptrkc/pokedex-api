@@ -7,16 +7,21 @@ export async function authMiddleware(
     res: Response,
     next: NextFunction
 ) {
-    const authorization = req.headers["authorization"];
-    if (!authorization) return res.sendStatus(401);
+    try {
+        const authorization = req.headers["authorization"];
+        if (!authorization) return res.sendStatus(401);
 
-    const token = authorization.split("Bearer ")[1];
-    if (!token) return res.sendStatus(401);
+        const token = authorization.split("Bearer ")[1];
+        if (!token) return res.sendStatus(401);
 
-    const session = await getRepository(Session).findOne({ token });
-    if (!session) return res.sendStatus(401);
+        const session = await getRepository(Session).findOne({ token });
+        if (!session) return res.sendStatus(401);
 
-    res.locals.userId = session.userId;
+        res.locals.userId = session.userId;
 
-    return next();
+        return next();
+    } catch (e) {
+        console.log(e);
+        return res.sendStatus(500);
+    }
 }

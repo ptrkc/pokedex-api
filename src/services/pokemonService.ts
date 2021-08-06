@@ -11,7 +11,7 @@ export async function getAll(userId: number) {
     });
     const userPokemons = await getRepository(UserPokemon).find({ userId });
     userPokemons.forEach((p) => {
-        pokemons[p.id - 1].inMyPokemons = true;
+        pokemons[p.pokemonId - 1].inMyPokemons = true;
     });
 
     return pokemons;

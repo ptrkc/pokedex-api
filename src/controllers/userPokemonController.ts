@@ -19,3 +19,22 @@ export async function add(req: Request, res: Response) {
         res.sendStatus(500);
     }
 }
+
+export async function remove(req: Request, res: Response) {
+    try {
+        const error = schemas.id.validate(req.params).error;
+        if (error) return res.sendStatus(400);
+
+        const pokemonId = parseInt(req.params.id);
+        const removePokemon = await userPokemonService.remove(
+            res.locals.userId,
+            pokemonId
+        );
+        if (!removePokemon) return res.sendStatus(400);
+
+        res.sendStatus(200);
+    } catch (err) {
+        console.error(err);
+        res.sendStatus(500);
+    }
+}
