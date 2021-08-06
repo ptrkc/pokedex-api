@@ -9,4 +9,6 @@ export const signUp = signIn.append({
     confirmPassword: Joi.ref("password"),
 });
 
-export const id = Joi.number().integer().min(1).required();
+export const id = Joi.object({
+    id: Joi.number().integer().min(1).required(),
+});

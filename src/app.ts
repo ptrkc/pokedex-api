@@ -9,6 +9,7 @@ import connectDatabase from "./database";
 import * as userController from "./controllers/userController";
 import { authMiddleware } from "./middlewares/authMiddleware";
 import * as pokemonController from "./controllers/pokemonController";
+import * as userPokemonController from "./controllers/userPokemonController";
 
 const app = express();
 app.use(cors());
@@ -20,7 +21,7 @@ app.post("/sign-in", userController.signIn);
 
 app.get("/pokemons", authMiddleware, pokemonController.getAll);
 
-// app.post("/my-pokemons/:id/add", authMiddleware, pokemonController.add);
+app.post("/my-pokemons/:id/add", authMiddleware, userPokemonController.add);
 
 // app.get("/my-pokemons/:id/remove", authMiddleware, pokemonController.remove);
 
